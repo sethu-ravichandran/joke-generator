@@ -60,9 +60,10 @@ export const JokeGenerator: React.FC = () => {
   }, [currentJoke])
 
   const handleJokeSelect = useCallback((joke: RecentJoke) => {
-    setCurrentJoke(joke)
-    setSelectedCategory(joke.category as JokeCategory)
-  }, [])
+  const { timestamp, ...jokeWithoutTimestamp } = joke
+  setCurrentJoke(jokeWithoutTimestamp as Joke)
+  setSelectedCategory(joke.category as JokeCategory)
+}, [])
 
   return (
     <div className="space-y-8">
