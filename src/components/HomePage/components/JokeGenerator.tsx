@@ -1,11 +1,11 @@
 'use client'
 
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { toast } from 'react-hot-toast'
 import { CategorySelector } from './CategorySelector'
 import { JokeDisplay } from './JokeDisplay'
 import { JokeControls } from './JokeControls'
-import { RecentJokes } from './RecentJokes'
+import { RecentJokes, loadJokesFromStorage } from './RecentJokes'
 import { fetchJoke, copyToClipboard } from '@/lib/jokeApi'
 import {
   Joke,
@@ -18,6 +18,12 @@ export const JokeGenerator: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<JokeCategory>('Any')
   const [recentJokes, setRecentJokes] = useState<RecentJoke[]>([])
+
+  // Load jokes from localStorage on component mount
+  useEffect(() => {
+    const savedJokes = loadJokesFromStorage()
+    setRecentJokes(savedJokes)
+  }, [])
 
   const handleGetNewJoke = useCallback(async () => {
     setIsLoading(true)
@@ -60,10 +66,10 @@ export const JokeGenerator: React.FC = () => {
   }, [currentJoke])
 
   const handleJokeSelect = useCallback((joke: RecentJoke) => {
-  const { timestamp, ...jokeWithoutTimestamp } = joke
-  setCurrentJoke(jokeWithoutTimestamp as Joke)
-  setSelectedCategory(joke.category as JokeCategory)
-}, [])
+    const { timestamp, ...jokeWithoutTimestamp } = joke
+    setCurrentJoke(jokeWithoutTimestamp as Joke)
+    setSelectedCategory(joke.category as JokeCategory)
+  }, [])
 
   return (
     <div className="space-y-8">

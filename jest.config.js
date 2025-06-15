@@ -12,7 +12,7 @@ const customJestConfig = {
     '^@/lib/(.*)$': '<rootDir>/src/lib/$1',
     '^@/hooks/(.*)$': '<rootDir>/hooks/$1'
   },
-  testEnvironment: 'jest-environment-jsdom',
+  testEnvironment: 'jsdom',
   collectCoverageFrom: [
     'components/**/*.{js,jsx,ts,tsx}',
     'app/**/*.{js,jsx,ts,tsx}',
