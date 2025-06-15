@@ -1,9 +1,9 @@
+import React from 'react'
 import { render, screen } from '@testing-library/react'
 import JokeSection from '@/components/HomePage/components/JokeSection'
 
-
 jest.mock('../../src/components/HomePage/components/JokeGenerator.tsx', () => ({
-  JokeGenerator: () => <div data-testid="joke-generator">MockJokeGenerator</div>,
+  JokeGenerator: () => <div data-testid="joke-generator">MockJokeGenerator</div>
 }))
 
 describe('JokeSection Component', () => {
@@ -15,7 +15,9 @@ describe('JokeSection Component', () => {
 
   it('renders the description paragraph', () => {
     render(<JokeSection />)
-    const paragraph = screen.getByText(/choose a category and get ready to laugh!/i)
+    const paragraph = screen.getByText(
+      /choose a category and get ready to laugh!/i
+    )
     expect(paragraph).toBeInTheDocument()
   })
 

@@ -1,3 +1,4 @@
+import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { RecentJokes } from '@/components/HomePage/components/RecentJokes'
 import { formatDistanceToNow } from 'date-fns'
@@ -12,7 +13,7 @@ describe('RecentJokes Component', () => {
       joke: 'Why do programmers prefer dark mode?',
       setup: '',
       delivery: '',
-      timestamp: new Date(Date.now() - 1000 * 60 * 5) // 5 minutes ago
+      timestamp: new Date(Date.now() - 1000 * 60 * 5) 
     },
     {
       id: '2',
@@ -21,7 +22,7 @@ describe('RecentJokes Component', () => {
       joke: '',
       setup: 'Why did the chicken cross the road?',
       delivery: 'To get to the other side!',
-      timestamp: new Date(Date.now() - 1000 * 60 * 10) // 10 minutes ago
+      timestamp: new Date(Date.now() - 1000 * 60 * 10) 
     }
   ]
 

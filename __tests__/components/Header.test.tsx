@@ -1,8 +1,9 @@
+import React from 'react'
 import { render, screen } from '@testing-library/react'
 import Header from '@/components/HomePage/components/Header'
 
 jest.mock('../../src/components/HomePage/components/ThemeToggle', () => ({
-  ThemeToggle: () => <div data-testid="theme-toggle">MockThemeToggle</div>,
+  ThemeToggle: () => <div data-testid="theme-toggle">MockThemeToggle</div>
 }))
 
 describe('Header Component', () => {

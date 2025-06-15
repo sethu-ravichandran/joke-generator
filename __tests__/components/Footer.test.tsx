@@ -1,8 +1,9 @@
+import React from 'react'
 import { render, screen } from '@testing-library/react'
 import Footer from '@/components/HomePage/components/Footer'
 
 jest.mock('lucide-react', () => ({
-  Heart: () => <svg data-testid="heart-icon" />,
+  Heart: () => <svg data-testid="heart-icon" />
 }))
 
 describe('Footer Component', () => {
