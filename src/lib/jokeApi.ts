@@ -7,7 +7,7 @@ import {
   getJokeText
 } from '@/components/HomePage/types/joke'
 
-const API_BASE_URL = 'https://v2.jokeapi.dev/joke'
+const API_BASE_URL = process.env.NEXT_PUBLIC_JOKE_API_URL
 
 export const fetchJoke = async (
   category: JokeCategory = 'Any'
