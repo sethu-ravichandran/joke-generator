@@ -28,14 +28,12 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const [theme, setTheme] = useState<Theme>('light')
   const [mounted, setMounted] = useState(false)
 
-  // Initialize theme from localStorage
   useEffect(() => {
     setMounted(true)
     const savedTheme = localStorage.getItem('joke-generator-theme') as Theme
     if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark')) {
       setTheme(savedTheme)
     } else {
-      // Check system preference
       const systemPrefersDark = window.matchMedia(
         '(prefers-color-scheme: dark)'
       ).matches

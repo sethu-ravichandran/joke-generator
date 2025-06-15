@@ -1,6 +1,5 @@
 import '@testing-library/jest-dom'
 
-// Mock IntersectionObserver
 global.IntersectionObserver = class IntersectionObserver {
   constructor() {}
   observe() {
@@ -14,24 +13,22 @@ global.IntersectionObserver = class IntersectionObserver {
   }
 }
 
-// Mock clipboard API
 Object.assign(navigator, {
   clipboard: {
-    writeText: jest.fn(() => Promise.resolve()),
-  },
+    writeText: jest.fn(() => Promise.resolve())
+  }
 })
 
-// Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: jest.fn().mockImplementation(query => ({
+  value: jest.fn().mockImplementation((query) => ({
     matches: false,
     media: query,
     onchange: null,
-    addListener: jest.fn(), // deprecated
-    removeListener: jest.fn(), // deprecated
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
     addEventListener: jest.fn(),
     removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
-  })),
+    dispatchEvent: jest.fn()
+  }))
 })

@@ -1,7 +1,10 @@
 import {
   JokeResponse,
   Joke,
-  JokeCategory
+  JokeCategory,
+  isSingleJoke,
+  isTwoPartJoke,
+  getJokeText
 } from '@/components/HomePage/types/joke'
 
 const API_BASE_URL = 'https://v2.jokeapi.dev/joke'
@@ -27,12 +30,9 @@ export const fetchJoke = async (
       return data.jokes[0]
     }
 
-    return {
+    // Transform API response to our strict type
+    const baseJoke = {
       id: data.id || Math.random(),
-      type: data.type === 'twopart' ? 'twopart' : 'single',
-      setup: data.setup,
-      delivery: data.delivery,
-      joke: data.joke,
       category: data.category || category,
       safe: data.safe ?? true,
       lang: data.lang || 'en',
@@ -45,10 +45,33 @@ export const fetchJoke = async (
         explicit: false
       }
     }
+
+    if (data.type === 'twopart' && data.setup && data.delivery) {
+      return {
+        ...baseJoke,
+        type: 'twopart' as const,
+        setup: data.setup,
+        delivery: data.delivery
+      }
+    } else if (data.joke) {
+      return {
+        ...baseJoke,
+        type: 'single' as const,
+        joke: data.joke
+      }
+    }
+
+    throw new Error('Invalid joke format received from API')
   } catch (error) {
     console.error('Error fetching joke:', error)
     throw new Error('Failed to fetch joke. Please try again.')
   }
+}
+
+// Helper function to get joke text for copying/displaying
+export const copyJokeToClipboard = async (joke: Joke): Promise<void> => {
+  const jokeText = getJokeText(joke)
+  await copyToClipboard(jokeText)
 }
 
 export const copyToClipboard = async (text: string): Promise<void> => {

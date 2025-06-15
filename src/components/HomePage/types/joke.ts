@@ -1,9 +1,5 @@
-export interface Joke {
+interface BaseJoke {
   id: number
-  type: 'single' | 'twopart'
-  setup?: string
-  delivery?: string
-  joke?: string
   category: string
   safe: boolean
   lang: string
@@ -17,16 +13,32 @@ export interface Joke {
   }
 }
 
+interface SingleJoke extends BaseJoke {
+  type: 'single'
+  joke: string
+  setup?: never
+  delivery?: never
+}
+
+interface TwoPartJoke extends BaseJoke {
+  type: 'twopart'
+  setup: string
+  delivery: string
+  joke?: never
+}
+
+export type Joke = SingleJoke | TwoPartJoke
+
 export interface JokeResponse {
   error: boolean
   amount: number
   jokes?: Joke[]
-  joke?: Joke
-  category?: string
-  type?: string
+  id?: number
+  type?: 'single' | 'twopart'
   setup?: string
   delivery?: string
-  id?: number
+  joke?: string
+  category?: string
   safe?: boolean
   lang?: string
   flags?: {
@@ -39,7 +51,11 @@ export interface JokeResponse {
   }
 }
 
-export interface RecentJoke extends Joke {
+export interface RecentJoke extends BaseJoke {
+  type: 'single' | 'twopart'
+  setup?: string
+  delivery?: string
+  joke?: string
   timestamp: Date
 }
 
@@ -51,3 +67,19 @@ export type JokeCategory =
   | 'Pun'
   | 'Spooky'
   | 'Christmas'
+
+export const isSingleJoke = (joke: Joke): joke is SingleJoke => {
+  return joke.type === 'single'
+}
+
+export const isTwoPartJoke = (joke: Joke): joke is TwoPartJoke => {
+  return joke.type === 'twopart'
+}
+
+export const getJokeText = (joke: Joke): string => {
+  if (isSingleJoke(joke)) {
+    return joke.joke
+  } else {
+    return `${joke.setup}\n${joke.delivery}`
+  }
+}
