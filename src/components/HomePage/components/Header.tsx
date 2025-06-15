@@ -7,7 +7,7 @@ const Header = () => {
         <div className="flex items-center space-x-3">
         <FaceSmileIcon className="h-8 w-8 text-purple-600 dark:text-purple-400" data-testid="face-smile-icon"/>
         <h1 className="text-3xl font-bold text-purple-800 dark:text-white">
-            Joke Generator
+            JokeGenie
         </h1>
         </div>
         <ThemeToggle />
