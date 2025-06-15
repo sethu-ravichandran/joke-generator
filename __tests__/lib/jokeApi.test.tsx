@@ -52,7 +52,7 @@ describe('fetchJoke', () => {
       const result = await fetchJoke('Misc')
 
       expect(fetch).toHaveBeenCalledWith(
-        'https://v2.jokeapi.dev/joke/Misc?safe-mode'
+        `${process.env.NEXT_PUBLIC_JOKE_API_URL}/Misc?safe-mode`
       )
       expect(result).toEqual({
         id: 123,
@@ -102,7 +102,7 @@ describe('fetchJoke', () => {
       const result = await fetchJoke('Programming')
 
       expect(fetch).toHaveBeenCalledWith(
-        'https://v2.jokeapi.dev/joke/Programming?safe-mode'
+        `${process.env.NEXT_PUBLIC_JOKE_API_URL}/Programming?safe-mode`
       )
       expect(result).toEqual({
         id: 456,
@@ -151,7 +151,7 @@ describe('fetchJoke', () => {
       await fetchJoke()
 
       expect(fetch).toHaveBeenCalledWith(
-        'https://v2.jokeapi.dev/joke/Any?safe-mode'
+        `${process.env.NEXT_PUBLIC_JOKE_API_URL}/Any?safe-mode`
       )
     })
 
